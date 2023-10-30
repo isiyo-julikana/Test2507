@@ -59,18 +59,12 @@ string[] SelectMethodFill(int size)
 
 string RandomVar()
 {
-    Random rand = new Random();
-    int stringlen = rand.Next(1, 10);
-    int randValue;
-    string str = "";
-    char letter;
-    for (int i = 0; i < stringlen; i++)
-    {
-        randValue = rand.Next(0, 26);
-        letter = Convert.ToChar(randValue + 65);
-        str = str + letter;
-    }
-    return str;
+    Random random = new Random();
+    int length = new Random().Next(1, 10);
+    const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    return new string(Enumerable.Repeat(chars, length)
+        .Select(s => s[random.Next(s.Length)]).ToArray());
+
 }
 void ArrayPrinter(string[] array)
 {
@@ -84,7 +78,8 @@ void ArrayPrinter(string[] array)
 }
 string[] ArrayChecker(string[] array)
 {
-    int count = 0;
+    Console.WriteLine("Обработка массива.");
+    int j = 0;
     string[] newArray = new string[0];
     for (int i = 0; i < array.Length; i++)
     {
@@ -92,8 +87,8 @@ string[] ArrayChecker(string[] array)
         if (str.Length < 4)
         {
             Array.Resize(ref newArray, newArray.Length + 1);
-            newArray[count] = array[i];
-            count++;
+            newArray[j] = array[i];
+            j++;
         }
     }
     return newArray;
@@ -108,4 +103,4 @@ ArrayPrinter(genArray);
 string[] chckdArray = ArrayChecker(genArray);
 ArrayPrinter(chckdArray);
 
-Console.WriteLine("hello");
+Console.WriteLine("Завершение.");
